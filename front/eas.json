@@ -1,0 +1,48 @@
+{
+  "cli": {
+    "version": ">= 3.0.0",
+    "appVersionSource": "local"
+  },
+  "build": {
+    "production": {
+      "node": "20.18.0",
+      "env": {
+        "APP_VARIANT": "production",
+        "WEB_BASE_URL": "https://mtaanimall.com/api",
+        "MOBILE_BASE_URL": "https://mtaanimall.com/api",
+        "WEB_IMAGE_URL": "https://mtaanimall.com",
+        "MOBILE_IMAGE_URL": "https://mtaanimall.com",
+        "GOOGLE_MAPS_API_KEY" :"AIzaSyBdkGgefLfKWnJ5Pfhn_doA5Ycu-vUuMNY",
+        "GOOGLE_MAPS_API_KEY_ANDROID" : "AIzaSyDWg4nhZldkpUZHNBM4cS78Vy8ldAI",
+        "GOOGLE_MAPS_API_KEY_IOS" : "AIzaSyDsOhTu1QHNf4YRKLrar4HHG9Mk24"
+      },
+      "android": {
+        "buildType": "app-bundle",
+        "image": "latest"
+      },
+      "ios": {
+        "simulator": false
+      }
+    },
+    "preview": {
+      "node": "20.18.0",
+      "env": {
+        "APP_VARIANT": "production",
+        "WEB_BASE_URL": "https://mtaanimall.com/api",
+        "MOBILE_BASE_URL": "https://mtaanimall.com/api",
+        "WEB_IMAGE_URL": "https://mtaanimall.com",
+        "MOBILE_IMAGE_URL": "https://mtaanimall.com",
+        "GOOGLE_MAPS_API_KEY" :"AIzaSyBdkGgefLfKWnJ5Pfhn_doA5Ycu-vUuMNY",
+        "GOOGLE_MAPS_API_KEY_ANDROID" : "AIzaSyJcL4nhZldkpUZHNBM4cS78Vy8ldAI",
+        "GOOGLE_MAPS_API_KEY_IOS" : "AIzaSyBIPdQu1QHNf4YRKLrar4HHG9Mk24"
+      },
+      "android": {
+        "buildType": "apk",
+        "image": "latest"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

@@ -1,0 +1,24 @@
+services:
+  frontend-blue:
+    build:
+      context: ./front
+      dockerfile: Dockerfile2
+    image: steve-frontend:blue
+    container_name: steve-frontend-blue
+    ports:
+      - "3131:3000"
+    env_file:
+      - ./front/.env
+    restart: unless-stopped
+
+  frontend-green:
+    build:
+      context: ./front
+      dockerfile: Dockerfile2
+    image: steve-frontend:green
+    container_name: steve-frontend-green
+    ports:
+      - "3132:3000"
+    env_file:
+      - ./front/.env
+    restart: unless-stopped

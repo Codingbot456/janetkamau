@@ -1,0 +1,57 @@
+export default {
+  expo: {
+    name: "MtaaniMall",
+    slug: "MtaaniMall",
+    version: "4.0.0",
+    orientation: "portrait",
+    icon: "./src/assets/logo.jpg",
+    userInterfaceStyle: "light",
+    newArchEnabled: true,
+    
+    splash: {
+      image: "./src/assets/logo.jpg",
+      resizeMode: "contain",
+      backgroundColor: "#ffffff"
+    },
+    
+    android: {
+      adaptiveIcon: {
+        foregroundImage: "./src/assets/logo.jpg",
+        backgroundColor: "#FFFFFF"
+      },
+      package: "com.mtaanimall.app",
+      edgeToEdgeEnabled: true,
+      versionCode: 12,
+      permissions: [
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION"
+      ]
+    },
+    
+    ios: {
+      supportsTablet: true,
+      bundleIdentifier: "com.mtaanimall.app"
+    },
+    
+    web: {
+      favicon: "./src/assets/logo2.jpg",
+    },
+
+    
+    
+    
+    
+    extra: {
+      eas: {
+        projectId: "5acef150-2a7b-48c2-af73-6e13884caf7f"
+      },
+      WEB_BASE_URL: process.env.WEB_BASE_URL,
+      MOBILE_BASE_URL: process.env.MOBILE_BASE_URL,
+      WEB_IMAGE_URL: process.env.WEB_IMAGE_URL,
+      MOBILE_IMAGE_URL: process.env.MOBILE_IMAGE_URL,
+      GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY,
+      GOOGLE_MAPS_API_KEY_ANDROID: process.env.GOOGLE_MAPS_API_KEY_ANDROID,
+      GOOGLE_MAPS_API_KEY_IOS: process.env.GOOGLE_MAPS_API_KEY_IOS,
+    },
+  },
+};

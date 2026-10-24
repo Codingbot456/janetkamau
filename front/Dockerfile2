@@ -1,0 +1,30 @@
+FROM node:20-alpine
+
+RUN apk add --no-cache bash curl python3 make g++
+
+WORKDIR /usr/src/app
+
+RUN npm config set fetch-retries 20 && \
+    npm config set fetch-timeout 300000 && \
+    npm config set strict-ssl false
+
+RUN npm config set registry https://registry.npmjs.org/
+
+COPY package*.json ./
+
+RUN npm ci
+
+COPY .env .env
+
+COPY . .
+
+RUN npx expo export --platform web
+
+RUN npm install -g serve
+
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:3000/ || exit 1
+
+CMD ["serve", "-s", "dist", "-l", "3000"]

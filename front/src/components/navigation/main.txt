@@ -1,0 +1,321 @@
+import React from 'react';
+import { Platform, View, StyleSheet, useWindowDimensions } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SCREENS, isSellerShop } from '../constants/screenConstants';
+import { withScreenLayout } from '../components/ScreenLayout';
+
+// Import all your screens (same imports as before)
+import HomeScreen from '../screens/Home/HomeScreen';
+import LoginScreen from '../screens/registry/LoginScreen';
+import RegisterScreen from '../screens/registry/RegisterScreen';
+import CategoriesScreen from '../screens/CategoriesScreen';
+import SalesScreen from '../screens/SalesScreen';
+import AccountScreen from '../screens/AccountScreen';
+import BlogDetail from '../Blogs/blogdetails/BlogDetail';
+import BlogList from '../Blogs/bloglist/blogLists';
+import ServiceCategoryList from '../digitalserrvices/ServiceCategoryList';
+import ServicesList from '../shopService/list/ServicesList';
+import ServiceDetails from '../shopService/details/servicesDetail';
+import CouponsList from '../discounts/list/CouponsList';
+import SellerShop from '../screens/shop/SellerShop';
+import ProductDetail from '../productDetails/ProductDetail';
+import Cart from '../cart/cart';
+import Wishlist from '../wishlist/WishlistPage';
+import CheckoutForm from '../paying/checkout/CheckoutForm';
+import PaymentForm from '../paying/Payments/Pay';
+import Registration from '../registry/register/register';
+import Login from '../registry/login/login';
+import ProfilePage from '../registry/profile/Profile';
+import DashboardLayout from '../dashboard/DashboardLayout';
+import CombinedChat from '../Chat/CombinedChat';
+import Chatbot from '../chatbot/Chatbot';
+import WaterProducts from './../water/WaterProducts';
+import ThemeImagesManager from './../dashboard/pages/theme/themeImages/ThemeImagesManager';
+import AllProducts from '../screens/productPages/All/AllProducts';
+import CategoryProducts from '../screens/productPages/category/CategoryProducts';
+import SubSubcategoryProducts from './../screens/productPages/subsubcategory/SubSubcategoryProducts';
+import SubcategoryProducts from './../screens/productPages/subcategory/SubcategoryProducts';
+import BrandProducts from './../screens/productPages/brand/BrandProducts';
+import TimelineProducts from './../screens/productPages/timeline/TimelineProducts';
+import CategoryLinks from './../../components/links/smallCategory/CategoryLinks';
+import FoodAllProducts from '../screens/FoodPages/All/FoodAllProducts';
+import FoodCategoryProducts from '../screens/FoodPages/category/FoodCategoryProducts';
+import FoodSubcategoryProducts from './../screens/FoodPages/subcategory/FoodSubcategoryProducts';
+import FoodSubSubcategoryProducts from './../screens/FoodPages/subcat/FoodSubSubcategoryProducts';
+import FoodTimelineProducts from './../screens/FoodPages/timeline/FoodTimelineProducts';
+import FoodBrandProducts from './../screens/FoodPages/brand/FoodBrandProducts';
+import FoodProductDetail from './../productDetails/foodDetails/FoodProductDetail';
+import FoodSellerShop from './../screens/FoodPages/shop/FoodSellerShop';
+import MarketProducts from '../screens/FoodPages/Market/MarketProducts';
+import WaterAllProducts from '../screens/water/All/WaterAllProducts';
+import WaterCategoryProducts from '../screens/water/category/WaterCategoryProducts';
+import WaterSubcategoryProducts from '../screens/water/subcategory/WaterSubcategoryProducts';
+import WaterSubSubcategoryProducts from '../screens/water/subcat/WaterSubSubcategoryProducts';
+import WaterTimelineProducts from '../screens/water/timeline/WaterTimeline';
+import WaterBrandProducts from '../screens/water/brand/WaterBrandProducts';
+import WaterProductDetail from './../productDetails/waterDetails/WaterProductDetail';
+import WaterSellerShop from './../screens/water/shop/WaterSellerShop';
+import About from './../footer/footerData/about/About';
+import Contact from './../footer/footerData/contacts/Contact';
+import Copyright from './../footer/footerData/copyRight/Copyright';
+import FaqPage from './../footer/footerData/faq/FaqPage';
+import Press from './../footer/footerData/press/Press';
+import PrivacyPolicy from './../footer/footerData/privacy/PrivacyPolicy';
+import Sitemap from './../footer/footerData/sitemap/Sitemap';
+import TermsAndConditions from './../footer/footerData/terms/TermsAndConditions';
+import PharmacyAllProducts from './../screens/pharmacy/All/PharmacyAllProducts';
+import PharmacyProductDetail from './../productDetails/pharmacyDetails/PharmacyProductDetail';
+import PharmacyCategoryProducts from './../screens/pharmacy/category/PharmacyCategoryProducts';
+import PharmacySubcategoryProducts from './../screens/pharmacy/subcateg/PharmacySubcategoryProducts';
+import PharmacyBrandProducts from './../screens/pharmacy/brand/PharmacyBrandProducts';
+import PharmacySellerShop from './../screens/pharmacy/shop/PharmacySellerShop';
+import PharmacySubsubcategoryProducts from './../screens/pharmacy/subsub/PharmacySubsubcategoryProducts';
+import FlashSalePage from './../screens/discounts/flashsale/FlashSalePage';
+import DealsPage from './../screens/discounts/dealspage/DealsPage';
+import DealTypePage from './../screens/discounts/dealType/DealTypePage';
+import ResetPassword from './../resetPassword/ResetPassword';
+import VerifyEmailChangeScreen from './../resetPassword/VerifyEmailChangeScreen';
+import GasProductDetail from './../productDetails/gas/GasProductDetail';
+import GasAllProducts from './../screens/gas/All/GasAllProducts';
+import GasCategoryProducts from './../screens/gas/category/GasCategoryProducts';
+import GasBrandProducts from './../screens/gas/brand/GasBrandProducts';
+import GasSubcategoryProducts from './../screens/gas/subcat/GasSubcategoryProducts';
+import GasSellerShop from './../screens/gas/shop/GasSellerShop';
+import GasSubSubcategoryProducts from './../screens/gas/subtype/GasSubcategoryProducts.styles';
+import MarketListScreen from '../screens/FoodPages/MarketList/MarketListScreen';
+import CompleteInvitation from '../registry/register/staff/CompleteInvitation';
+
+const Stack = createNativeStackNavigator();
+
+// Helper function for seller shop options (SAME as your original)
+const getSellerShopOptions = ({ route }) => ({ 
+  key: route.params?.sellerId || route.params?.seller_id || `seller_${Date.now()}`,
+  title: route.params?.shopName || 'Seller Shop'
+});
+
+// Map screens to their components
+const screenMap = {
+  [SCREENS.HOME]: HomeScreen,
+  [SCREENS.CATEGORIES]: CategoriesScreen,
+  [SCREENS.BLOGS]: BlogList,
+  [SCREENS.SERVICES]: ServiceCategoryList,
+  [SCREENS.SALES]: SalesScreen,
+  [SCREENS.ACCOUNT]: AccountScreen,
+  [SCREENS.ALL_PRODUCTS]: AllProducts,
+  [SCREENS.CATEGORY_PRODUCTS]: CategoryProducts,
+  [SCREENS.SUBCAT_PRODUCTS]: SubcategoryProducts,
+  [SCREENS.SUBTYPE_PRODUCTS]: SubSubcategoryProducts,
+  [SCREENS.BRAND_PRODUCTS]: BrandProducts,
+  [SCREENS.TIMELINE_PRODUCTS]: TimelineProducts,
+  [SCREENS.FOOD_ALL_PRODUCTS]: FoodAllProducts,
+  [SCREENS.FOOD_CATEGORY_PRODUCTS]: FoodCategoryProducts,
+  [SCREENS.FOOD_SUBCAT_PRODUCTS]: FoodSubcategoryProducts,
+  [SCREENS.FOOD_SUBTYPE_PRODUCTS]: FoodSubSubcategoryProducts,
+  [SCREENS.FOOD_BRAND_PRODUCTS]: FoodBrandProducts,
+  [SCREENS.FOOD_TIMELINE_PRODUCTS]: FoodTimelineProducts,
+  [SCREENS.MARKET_PRODUCTS]: MarketProducts,
+  [SCREENS.MARKET_LIST]: MarketListScreen,
+  [SCREENS.WATER_ALL_PRODUCTS]: WaterAllProducts,
+  [SCREENS.WATER_CATEGORY_PRODUCTS]: WaterCategoryProducts,
+  [SCREENS.WATER_SUBCAT_PRODUCTS]: WaterSubcategoryProducts,
+  [SCREENS.WATER_SUBTYPE_PRODUCTS]: WaterSubSubcategoryProducts,
+  [SCREENS.WATER_BRAND_PRODUCTS]: WaterBrandProducts,
+  [SCREENS.WATER_TIMELINE_PRODUCTS]: WaterTimelineProducts,
+  [SCREENS.PHARMACY_ALL_PRODUCTS]: PharmacyAllProducts,
+  [SCREENS.PHARMACY_CATEGORY_PRODUCTS]: PharmacyCategoryProducts,
+  [SCREENS.PHARMACY_SUBCAT_PRODUCTS]: PharmacySubcategoryProducts,
+  [SCREENS.PHARMACY_SUBTYPE_PRODUCTS]: PharmacySubsubcategoryProducts,
+  [SCREENS.PHARMACY_BRAND_PRODUCTS]: PharmacyBrandProducts,
+  [SCREENS.GAS_ALL_PRODUCTS]: GasAllProducts,
+  [SCREENS.GAS_CATEGORY_PRODUCTS]: GasCategoryProducts,
+  [SCREENS.GAS_SUBCAT_PRODUCTS]: GasSubcategoryProducts,
+  [SCREENS.GAS_SUBTYPE_PRODUCTS]: GasSubSubcategoryProducts,
+  [SCREENS.GAS_BRAND_PRODUCTS]: GasBrandProducts,
+  [SCREENS.PRODUCT_DETAIL]: ProductDetail,
+  [SCREENS.FOOD_PRODUCT_DETAIL]: FoodProductDetail,
+  [SCREENS.WATER_PRODUCT_DETAIL]: WaterProductDetail,
+  [SCREENS.PHARMACY_PRODUCT_DETAIL]: PharmacyProductDetail,
+  [SCREENS.GAS_PRODUCT_DETAIL]: GasProductDetail,
+  [SCREENS.SELLER_SHOP]: SellerShop,
+  [SCREENS.FOOD_SELLER_SHOP]: FoodSellerShop,
+  [SCREENS.WATER_SELLER_SHOP]: WaterSellerShop,
+  [SCREENS.PHARMACY_SELLER_SHOP]: PharmacySellerShop,
+  [SCREENS.GAS_SELLER_SHOP]: GasSellerShop,
+  [SCREENS.CART]: Cart,
+  [SCREENS.WISHLIST]: Wishlist,
+  [SCREENS.CHECKOUT]: CheckoutForm,
+  [SCREENS.PAYMENT]: PaymentForm,
+  [SCREENS.LOGIN]: Login,
+  [SCREENS.REGISTER]: Registration,
+  [SCREENS.PROFILE]: ProfilePage,
+  [SCREENS.RESET_PASSWORD]: ResetPassword,
+  [SCREENS.VERIFY_EMAIL]: VerifyEmailChangeScreen,
+  [SCREENS.ABOUT]: About,
+  [SCREENS.CONTACT]: Contact,
+  [SCREENS.COPYRIGHT]: Copyright,
+  [SCREENS.FAQ]: FaqPage,
+  [SCREENS.PRESS]: Press,
+  [SCREENS.PRIVACY_POLICY]: PrivacyPolicy,
+  [SCREENS.SITEMAP]: Sitemap,
+  [SCREENS.TERMS]: TermsAndConditions,
+  [SCREENS.BLOG_DETAIL]: BlogDetail,
+  [SCREENS.SERVICE_LIST]: ServicesList,
+  [SCREENS.SERVICE_DETAILS]: ServiceDetails,
+  [SCREENS.DISCOUNTS]: CouponsList,
+  [SCREENS.DASHBOARD]: DashboardLayout,
+  [SCREENS.WATER_PRODUCTS]: WaterProducts,
+  [SCREENS.THEME_MANAGER]: ThemeImagesManager,
+  [SCREENS.CHAT]: CombinedChat,
+  [SCREENS.CHATBOT]: Chatbot,
+  [SCREENS.CATEGORY_LINKS]: CategoryLinks,
+  [SCREENS.FLASH_SALE]: FlashSalePage,
+  [SCREENS.DEALS]: DealsPage,
+  [SCREENS.DEAL_TYPE]: DealTypePage,
+  [SCREENS.COMPLETE_INVITATION]: CompleteInvitation,
+};
+
+// Helper to add screens to navigator
+const addScreens = (screens, StackComponent) => {
+  return screens.map(screenName => {
+    const Component = screenMap[screenName];
+    if (!Component) return null;
+    
+    const WrappedComponent = withScreenLayout(Component, screenName);
+    const isSeller = isSellerShop(screenName);
+    
+    return (
+      <StackComponent.Screen
+        key={screenName}
+        name={screenName}
+        component={WrappedComponent}
+        options={isSeller ? getSellerShopOptions : undefined}
+      />
+    );
+  }).filter(Boolean);
+};
+
+// Define all your screen groups (same order as original)
+const allScreens = [
+  // Main tab screens
+  SCREENS.HOME,
+  SCREENS.CATEGORIES,
+  SCREENS.BLOGS,
+  SCREENS.SERVICES,
+  SCREENS.SALES,
+  SCREENS.ACCOUNT,
+  
+  // Supermarket products
+  SCREENS.ALL_PRODUCTS,
+  SCREENS.CATEGORY_PRODUCTS,
+  SCREENS.SUBCAT_PRODUCTS,
+  SCREENS.SUBTYPE_PRODUCTS,
+  SCREENS.BRAND_PRODUCTS,
+  SCREENS.TIMELINE_PRODUCTS,
+  
+  // Food products
+  SCREENS.FOOD_ALL_PRODUCTS,
+  SCREENS.FOOD_CATEGORY_PRODUCTS,
+  SCREENS.FOOD_SUBCAT_PRODUCTS,
+  SCREENS.FOOD_SUBTYPE_PRODUCTS,
+  SCREENS.FOOD_BRAND_PRODUCTS,
+  SCREENS.FOOD_TIMELINE_PRODUCTS,
+  SCREENS.MARKET_PRODUCTS,
+  
+  // Water products
+  SCREENS.WATER_ALL_PRODUCTS,
+  SCREENS.WATER_CATEGORY_PRODUCTS,
+  SCREENS.WATER_SUBCAT_PRODUCTS,
+  SCREENS.WATER_SUBTYPE_PRODUCTS,
+  SCREENS.WATER_BRAND_PRODUCTS,
+  SCREENS.WATER_TIMELINE_PRODUCTS,
+  
+  // Pharmacy products
+  SCREENS.PHARMACY_ALL_PRODUCTS,
+  SCREENS.PHARMACY_CATEGORY_PRODUCTS,
+  SCREENS.PHARMACY_SUBCAT_PRODUCTS,
+  SCREENS.PHARMACY_SUBTYPE_PRODUCTS,
+  SCREENS.PHARMACY_BRAND_PRODUCTS,
+  
+  // Gas products
+  SCREENS.GAS_ALL_PRODUCTS,
+  SCREENS.GAS_CATEGORY_PRODUCTS,
+  SCREENS.GAS_SUBCAT_PRODUCTS,
+  SCREENS.GAS_SUBTYPE_PRODUCTS,
+  SCREENS.GAS_BRAND_PRODUCTS,
+  
+  // Footer pages
+  SCREENS.ABOUT,
+  SCREENS.CONTACT,
+  SCREENS.COPYRIGHT,
+  SCREENS.FAQ,
+  SCREENS.PRESS,
+  SCREENS.PRIVACY_POLICY,
+  SCREENS.SITEMAP,
+  SCREENS.TERMS,
+  
+  // Flash sale and deals
+  SCREENS.FLASH_SALE,
+  SCREENS.DEALS,
+  SCREENS.DEAL_TYPE,
+  
+  // Detail screens
+  SCREENS.PRODUCT_DETAIL,
+  SCREENS.FOOD_PRODUCT_DETAIL,
+  SCREENS.WATER_PRODUCT_DETAIL,
+  SCREENS.PHARMACY_PRODUCT_DETAIL,
+  SCREENS.GAS_PRODUCT_DETAIL,
+  
+  // Seller shops
+  SCREENS.SELLER_SHOP,
+  SCREENS.FOOD_SELLER_SHOP,
+  SCREENS.WATER_SELLER_SHOP,
+  SCREENS.PHARMACY_SELLER_SHOP,
+  SCREENS.GAS_SELLER_SHOP,
+  
+  // Cart and checkout
+  SCREENS.CART,
+  SCREENS.WISHLIST,
+  SCREENS.CHECKOUT,
+  SCREENS.PAYMENT,
+  
+  // Auth screens
+  SCREENS.LOGIN,
+  SCREENS.REGISTER,
+  SCREENS.PROFILE,
+  SCREENS.RESET_PASSWORD,
+  SCREENS.VERIFY_EMAIL,
+  
+  // Other screens
+  SCREENS.BLOG_DETAIL,
+  SCREENS.CATEGORY_LINKS,
+  SCREENS.CHAT,
+  SCREENS.CHATBOT,
+  SCREENS.SERVICE_LIST,
+  SCREENS.SERVICE_DETAILS,
+  SCREENS.DISCOUNTS,
+  SCREENS.DASHBOARD,
+  SCREENS.WATER_PRODUCTS,
+  SCREENS.THEME_MANAGER,
+  SCREENS.MARKET_LIST,
+  SCREENS.COMPLETE_INVITATION,
+];
+
+const MainNavigator = () => {
+  const { width } = useWindowDimensions();
+  const isWeb = Platform.OS === 'web';
+  const isWebLargeScreen = isWeb && width >= 768;
+
+  const screenOptions = {
+    headerShown: false,
+    detachInactiveScreens: false,
+    animation: isWeb ? 'none' : 'slide_from_right',
+  };
+
+  return (
+    <Stack.Navigator screenOptions={screenOptions}>
+      {addScreens(allScreens, Stack)}
+    </Stack.Navigator>
+  );
+};
+
+export default MainNavigator;

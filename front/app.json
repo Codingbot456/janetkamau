@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Frontend",
+    "slug": "Frontend",
+    "version": "5.0.0",
+
+    
+    "orientation": "portrait",
+    "icon": "./src/assets/logo.jpg",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "jsEngine": "hermes",
+    "splash": {
+      "image": "./src/assets/logo.jpg",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "jsEngine": "hermes"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/logo.jpg",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "jsEngine": "hermes"
+    },
+    "web": {
+      "favicon": "./src/assets/logo.jpg"
+    },
+    "plugins": [
+      "expo-secure-store"
+    ]
+  }
+}
