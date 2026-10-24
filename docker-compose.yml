@@ -3,10 +3,10 @@ services:
     build:
       context: ./front
       dockerfile: Dockerfile2
-    image: steve-frontend:blue
-    container_name: steve-frontend-blue
+    image: janet-frontend:blue
+    container_name: janet-frontend-blue
     ports:
-      - "3131:3000"
+      - "3151:3000"
     env_file:
       - ./front/.env
     restart: unless-stopped
@@ -15,10 +15,10 @@ services:
     build:
       context: ./front
       dockerfile: Dockerfile2
-    image: steve-frontend:green
-    container_name: steve-frontend-green
+    image: janet-frontend:green
+    container_name: janet-frontend-green
     ports:
-      - "3132:3000"
+      - "3152:3000"
     env_file:
       - ./front/.env
     restart: unless-stopped
